@@ -5,7 +5,7 @@ const verifyJWT = require('../utils/verifyJWT');
 const emedRouter = express.Router();
 
 emedRouter.route('/')
-    .get(getAll)
+    .get(verifyJWT,getAll)
     .post(create);
 
 emedRouter.route('/:id')

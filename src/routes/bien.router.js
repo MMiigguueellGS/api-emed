@@ -5,8 +5,8 @@ const verifyJWT = require('../utils/verifyJWT');
 const bienRouter = express.Router();
 
 bienRouter.route('/')
-    .get(verifyJWT,getAll)
-    .post(verifyJWT,create);
+    .get(getAll)
+    .post(create);
 
 bienRouter.route('/:id')
     .get(getOne)

@@ -5,8 +5,8 @@ const verifyJWT = require('../utils/verifyJWT');
 const ambulanciaRouter = express.Router();
 
 ambulanciaRouter.route("/")
-		.get(verifyJWT,getAll)
-		.post(verifyJWT,createAmbulancia)
+		.get(getAll)
+		.post(createAmbulancia)
 
 ambulanciaRouter.route("/:id")
 		.delete(deleteAmbulancia)
