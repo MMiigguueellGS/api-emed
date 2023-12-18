@@ -22,7 +22,8 @@ const login = catchError(async (req, res) => {
   const { id } = await Emed.findOne({
     where: { nombreEmed: emed.toUpperCase() },
   });
-
+  if (!id)
+  return res.status(401).json({ mensaje: "credenciales invalidas" });
   const usuario = await Usuario.findOne({ where: { idEmed: id } });
 
   if (!usuario)

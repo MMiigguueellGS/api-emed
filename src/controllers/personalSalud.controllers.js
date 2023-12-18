@@ -55,7 +55,12 @@ const update = catchError(async (req, res) => {
   return res.json(result[1][0]);
 });
 const numBrigadista = catchError(async (req, res) => {
+  const idEmed = req.usuario.idEmed
+  const { nombreEmed } = await Emed.findOne({ where: { id: idEmed } });
+  const where = {};
+  if (nombreEmed !== "GERESA") { where.redSalud = { [Op.iLike]: `%${nombreEmed}%` }; }
   const numBrigadistas = await PersonalSalud.findAll({
+    where:where,
     attributes: [
       "brigadista",
       [sequelize.fn("COUNT", Sequelize.col("brigadista")), "numBrigadista"],
@@ -66,7 +71,13 @@ const numBrigadista = catchError(async (req, res) => {
   return res.status(200).json(numBrigadistas);
 });
 const personalPorContrato = catchError(async (req, res) => {
+
+  const idEmed = req.usuario.idEmed
+  const { nombreEmed } = await Emed.findOne({ where: { id: idEmed } });
+  const where = {};
+  if (nombreEmed !== "GERESA") { where.redSalud = { [Op.iLike]: `%${nombreEmed}%` }; }
   const cantidadPorContrato = await PersonalSalud.findAll({
+    where:where,
     attributes: [
       [sequelize.col("condicionContrato.descripcion"), "descripcion"],
       [
